@@ -29,6 +29,6 @@ public class BoardController {
 		
 		//int total = boardServiceImpl.getCount();
 		
-		return "";
+		return "list2";
 	}
 }
