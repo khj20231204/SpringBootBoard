@@ -17,3 +17,8 @@ create table board (
 	reg_date date not null, 			-- 작성일
 	del char(1)
 );
+
+
+insert into board values(1,'홍홍홍','홍홍홍이 쓴 글','홍홍홍이 쓴 내용','홍홍@email.com',0,'1234',0,0,0,'ip',SYSDATE,'N');
+
+select * from board;
