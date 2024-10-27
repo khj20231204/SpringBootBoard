@@ -12,6 +12,7 @@ import com.example.demo.model.Board;
 import com.example.demo.service.BoardServiceImpl;
 
 
+
 @Controller
 public class BoardController {
 	
@@ -75,7 +76,15 @@ public class BoardController {
 		model.addAttribute("search",board.getSearch());
 		model.addAttribute("keyword",board.getKeyword());
 
-
 		return "list2";
 	}
+
+	@RequestMapping("insertForm.do")
+	public String insertForm() {
+
+		System.out.println("insertForm");
+
+		return "insertForm";
+	}
+	
 }

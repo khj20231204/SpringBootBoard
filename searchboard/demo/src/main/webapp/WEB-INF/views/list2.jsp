@@ -79,9 +79,14 @@
       -->
       <c:if test="${not empty keyword}">
          <!-- 
+            pagePerBlk = limit
+
             startPage가 한번에 보여주는 row값 limit=10 또는 limit=5 보다 큰 경우 [이전] 메뉴 표시 
             
+            startPage 값은 1, 11, 21, 31, .. 단위로 밖에 안나온다(limit가 10일 때)
+            pagePerBlk이 10이니깐 11, 21, 31 인 경우 [이전] 목록 출력
             [이전] [11] [12] .. [20] 
+
 
             "이전"을 클릭한 경우
             [1] [2] ... [10] 이 나오게 하려면
@@ -90,7 +95,7 @@
             시작페이지가 21 인 경우 = 11, 
             가 된다
          -->
-         <c:if test="${startPage > pp.pagePerBlk}">
+         <c:if test="${pp.startPage > pp.pagePerBlk}">
             <a href="list.do?pageNum=${pp.startPage - pp.pagePerBlk}&search=${search}&keyword=${keyword}">[이전]</a>
          </c:if>
          <!-- 
