@@ -21,19 +21,49 @@
 		<result property="del" column="del" />
 	</resultMap>
 	
-	<select id="getCount" parameterType="board">
-		select count(*) from board
+	<select id="getCount" parameterType="board" resultType="int">
+		select count(*) from board 
 		<where>
-			<if test="keyword != null and search != subcon">
-				${search} like ''%'||#{keyword}||'%''
+			<if test="keyword != null and search != 'subcon'">
+				${search} like '%'||#{keyword}||'%'
 			</if>
 			<if test="keyword != null and search == 'subcon'">
-				subject like ''%'||#{keyword}||'%'' or content like ''%'||#{keyword}||'%''
+				subject like '%' || #{keyword} || '%' or content like '%' || #{keyword} || '%'
 			</if>
 		</where>
-	</select>
+	</select> 
+
+	<!-- <select id="getCount" parameterType="board" resultType="int">
+		select count(*) from board 
+		<where>
+			<if test="keyword != null and search !='subcon'">
+				${search} like '%'||#{keyword}||'%'
+			</if>
+			<if test="keyword != null and search=='subcon'">
+				subject like '%'||#{keyword}||'%' or
+				content like '%'||#{keyword}||'%'
+			</if>
+		</where>
+	</select> -->
+	
 
 	<select id="getList" parameterType="board" resultMap="boardResult">
+		select * from (select a.*,rowNum rn from (
+			select * from board 
+		<where>
+			<if test="keyword != null and search!='subcon'">
+				${search} like '%'||#{keyword}||'%'
+			</if>
+			<if test="keyword != null and search=='subcon'">
+				subject like '%'||#{keyword}||'%' or
+				content like '%'||#{keyword}||'%'
+			</if>
+		</where>			
+			 order by ref desc,re_step) a )
+			where rn between #{startRow} and #{endRow}
+	</select>
+
+		<!-- <select id="getList" parameterType="board" resultMap="boardResult">
 		select * from (select a.*,rowNum rn from (
 			select * from board
 		<where>
@@ -47,5 +77,5 @@
 		</where>			
 			 order by ref desc,re_step) a )
 			where rn between #{startRow} and #{endRow}
-	</select>
+	</select> -->
 </mapper>

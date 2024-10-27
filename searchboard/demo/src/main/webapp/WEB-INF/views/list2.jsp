@@ -10,6 +10,9 @@
    <title>Document</title>
 </head>
 <body>
+   pp.startPage: ${pp.startPage}
+   pp.endPage: ${pp.endPage}
+
    <div class="container" align="center">
       <table border="1" width="800">
          <tr>
@@ -29,7 +32,6 @@
             <c:set var="no1" value="${no}"></c:set>
             <c:forEach var="board" items="${list}">
                <tr>
-                  
                   <!-- 글 숫자 foreach동안 no-1 -->
                   <td>${no1}</td>
                   
@@ -75,7 +77,7 @@
          검색 했을 경우의 페이징 처리 : 
          page와 search와 keyword를 함께 넘겨준다
       -->
-      <c:if test="${not empty keywoard}">
+      <c:if test="${not empty keyword}">
          <!-- 
             startPage가 한번에 보여주는 row값 limit=10 또는 limit=5 보다 큰 경우 [이전] 메뉴 표시 
             
@@ -91,18 +93,17 @@
          <c:if test="${startPage > pp.pagePerBlk}">
             <a href="list.do?pageNum=${pp.startPage - pp.pagePerBlk}&search=${search}&keyword=${keyword}">[이전]</a>
          </c:if>
-
          <!-- 
             forEach를 돌면서 페이징 처리 
             현재 페이지면 비활성화
             현재 페이지가 아니면 활성화
-          -->
+         -->
          <c:forEach var="i" begin="${pp.startPage}" end="${pp.endPage}">
             <c:if test="${i == pp.currentPage}">
                [${i}]
             </c:if>
             <c:if test="${i != pp.currentPage}">
-               <a href="list.do?pageNum=i&search=${search}&keyword=${keyword}"> [${i}]</a>
+               <a href="list.do?pageNum=${i}&search=${search}&keyword=${keyword}"> [${i}]</a>
             </c:if>
          </c:forEach>
 
@@ -119,8 +120,24 @@
          page만 넘겨준다
       -->
       <c:if test="${empty keyword}">
-
+         <c:if test="${pp.startPage > pp.pagePerBlk }">
+            <a href="list.do?pageNum=${pp.startPage - 1}">[이전]</a>
+         </c:if>
+         <c:forEach var="i" begin="${pp.startPage}" end="${pp.endPage}">
+            <c:if test="${pp.currentPage==i}">
+               [${i}]
+            </c:if>
+            <c:if test="${pp.currentPage != i}">
+               <a href="list.do?pageNum=${i}">[${i}]</a>
+            </c:if>
+         </c:forEach>
+         <c:if test="${pp.endPage < pp.totalPage}">
+            <a href="list.do?pageNum=${pp.endPage + 1}">[다음]</a>
+         </c:if>
       </c:if>
+		<div align="center">
+			<a href="insertForm.do" class="btn btn-info">글 입력</a>
+		</div>
    </div>
 </body>
 </html>
