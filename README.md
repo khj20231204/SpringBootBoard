@@ -21,7 +21,7 @@
 	ref : 부모 글의 pk값  
 	re_level : 같은 댓글 안에서 순서   
 	re_step : 들여쓰기   
-	4. insert를 할 때 PK인 num값에 sequence를 넣지 않고 현재 num값에서 가장 큰 수를 구하여 	더하기 1을 하는 씩으로 insert 실행   
+	4. 현재 게시판의 경우 댓글 테이블과 원문 테이블을 같이 사용하기 때문에 sequence를 사용할 경우 댓글을 입력해도 원문글의 sequence값이 증가하기 때문에 insert를 할 때 PK인 num값에 sequence를 넣지 않고 현재 num값에서 가장 큰 수를 구하여 	더하기 1을 하는 씩으로 insert 실행   
 	- 쿼리문 -
 	```sql
 		<selectKey keyProperty="num" 
