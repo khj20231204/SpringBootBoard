@@ -7,7 +7,7 @@
 	+ SptringBoot 3.1.9
 	+ MyBatis
 	+ jsp   
-	+ Oracle - jdbc11
+	+ Oracle - jdbc11  
 	+ lombok
 	+ tomcat - 10.1
 
